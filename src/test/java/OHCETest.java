@@ -26,63 +26,92 @@ public class OHCETest {
     }
 
     @Test
-    public void testPalindromeSimple() {
-        // ÉTANT DONNÉ le mot palindrome "radar"
-        // QUAND on appelle la méthode palindrome
-        String result = ohce.palindrome("radar");
+    public void testPalindromeInFrench() {
+        // ÉTANT DONNÉ un mot palindrome "radar" et la langue "fr"
+        // QUAND on appelle palindrome
+        String result = ohce.palindrome("radar", "fr");
 
-        // ALORS il retourne le mot inversé
+        // ALORS il retourne "radar"
         assertEquals("radar", result);
 
-        // ET il affiche bonjour, bien dit, au revoir
+        // ET les bons messages sont affichés
         String output = outContent.toString();
         assertTrue(output.contains("Bonjour"));
-        assertTrue(output.contains("radar"));
         assertTrue(output.contains("Bien dit !"));
         assertTrue(output.contains("Au revoir"));
     }
 
     @Test
-    public void testNonPalindrome() {
-        // ÉTANT DONNÉ un mot non palindrome "java"
-        // QUAND on appelle la méthode palindrome
-        String result = ohce.palindrome("java");
+    public void testNonPalindromeInFrench() {
+        // ÉTANT DONNÉ un mot non palindrome "voiture" et la langue "fr"
+        // QUAND on appelle palindrome
+        String result = ohce.palindrome("voiture", "fr");
 
-        // ALORS il retourne le mot inversé
-        assertEquals("avaj", result);
+        // ALORS il retourne "erutiov"
+        assertEquals("erutiov", result);
 
-        // ET il affiche bonjour et au revoir, mais pas "Bien dit !"
+        // ET seul Bonjour et Au revoir sont affichés
         String output = outContent.toString();
         assertTrue(output.contains("Bonjour"));
-        assertTrue(output.contains("avaj"));
         assertFalse(output.contains("Bien dit !"));
         assertTrue(output.contains("Au revoir"));
     }
 
     @Test
-    public void testPalindromeWithCase() {
-        // ÉTANT DONNÉ un palindrome insensible à la casse "Kayak"
-        // QUAND on appelle la méthode palindrome
-        String result = ohce.palindrome("Kayak");
+    public void testPalindromeInEnglish() {
+        // ÉTANT DONNÉ un palindrome "madam" et la langue "en"
+        // QUAND on appelle palindrome
+        String result = ohce.palindrome("madam", "en");
 
-        // ALORS il retourne "kayaK"
-        assertEquals("kayaK", result);
+        // ALORS il retourne "madam"
+        assertEquals("madam", result);
 
-        // ET il reconnaît que c'est un palindrome
+        // ET les messages sont affichés en anglais
         String output = outContent.toString();
-        assertTrue(output.contains("Bien dit !"));
+        assertTrue(output.contains("Hello"));
+        assertTrue(output.contains("Well said!"));
+        assertTrue(output.contains("Goodbye"));
     }
 
     @Test
-    public void testEmptyString() {
-        // ÉTANT DONNÉ une chaîne vide
-        // QUAND on appelle la méthode palindrome
-        String result = ohce.palindrome("");
+    public void testNonPalindromeInEnglish() {
+        // ÉTANT DONNÉ un mot non palindrome "world" et la langue "en"
+        // QUAND on appelle palindrome
+        String result = ohce.palindrome("world", "en");
+
+        // ALORS il retourne "dlrow"
+        assertEquals("dlrow", result);
+
+        // ET les bons messages sont affichés
+        String output = outContent.toString();
+        assertTrue(output.contains("Hello"));
+        assertFalse(output.contains("Well said!"));
+        assertTrue(output.contains("Goodbye"));
+    }
+
+    @Test
+    public void testEmptyInput() {
+        // ÉTANT DONNÉ une chaîne vide et la langue "fr"
+        // QUAND on appelle palindrome
+        String result = ohce.palindrome("", "fr");
 
         // ALORS il retourne une chaîne vide
         assertEquals("", result);
 
-        // ET affiche "Bien dit !" car une chaîne vide est un palindrome
+        // ET "Bien dit !" est affiché (car vide = palindrome)
+        String output = outContent.toString();
+        assertTrue(output.contains("Bonjour"));
+        assertTrue(output.contains("Bien dit !"));
+        assertTrue(output.contains("Au revoir"));
+    }
+
+    @Test
+    public void testDefaultToFrenchIfLangUnknown() {
+        // ÉTANT DONNÉ un mot palindrome et une langue inconnue "de"
+        // QUAND on appelle palindrome
+        String result = ohce.palindrome("radar", "de");
+
+        // ALORS les messages sont en français par défaut
         String output = outContent.toString();
         assertTrue(output.contains("Bonjour"));
         assertTrue(output.contains("Bien dit !"));

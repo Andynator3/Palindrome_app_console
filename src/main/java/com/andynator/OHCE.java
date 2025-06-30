@@ -2,29 +2,36 @@ package com.andynator;
 
 public class OHCE {
 
-    // Nouvelle version avec une unique méthode palindrome
-    public String palindrome(String input) {
-        System.out.println("Bonjour");
+    public String palindrome(String input, String lang) {
+        // Définition des messages selon la langue
+        String greeting;
+        String wellSaid;
+        String farewell;
 
-        // Inverser la chaîne directement ici
-        String reversed = "";
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed += input.charAt(i);
+        if ("en".equalsIgnoreCase(lang)) {
+            greeting = "Hello";
+            wellSaid = "Well said!";
+            farewell = "Goodbye";
+        } else { // par défaut : français
+            greeting = "Bonjour";
+            wellSaid = "Bien dit !";
+            farewell = "Au revoir";
         }
 
+        // Affichage
+        System.out.println(greeting);
+
+        String reversed = new StringBuilder(input).reverse().toString();
         System.out.println(reversed);
 
-        // Vérification du palindrome (insensible à la casse)
-        String originalLower = input.toLowerCase();
-        String reversedLower = reversed.toLowerCase();
-
-        if (originalLower.equals(reversedLower)) {
-            System.out.println("Bien dit !");
+        if (input.equalsIgnoreCase(reversed)) {
+            System.out.println(wellSaid);
         }
 
-        System.out.println("Au revoir");
+        System.out.println(farewell);
 
         return reversed;
     }
+
 
 }

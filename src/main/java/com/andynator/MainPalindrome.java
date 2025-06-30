@@ -5,9 +5,13 @@ public class MainPalindrome {
     public static void main(String[] args) {
         OHCE ohce = new OHCE();
 
-        ohce.palindrome("kayak");
+        // Appel avec la langue française
+        ohce.palindrome("kayak", "fr");
+
         System.out.println();
-        ohce.palindrome("bonjour");
+
+        // Appel avec la langue anglaise
+        ohce.palindrome("hello", "en");
     }
 
 }

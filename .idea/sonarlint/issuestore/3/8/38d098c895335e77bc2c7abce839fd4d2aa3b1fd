@@ -1,9 +1,0 @@
-
-Y
-java:S1854"<Remove this useless assignment to local variable "reversed".(®€’•8êş¼ıõ2
-J
-java:S1481"-Remove this unused "reversed" local variable.(®€’•8ğş¼ıõ2
-]	java:S125"<This block of commented-out lines of code should be removed.(Æ¹åÊÿÿÿÿÿ8ğş¼ıõ2
-G	java:S106"+Replace this use of System.out by a logger.(Ğ·8øş¼ıõ2
-N
-java:S1068"1Remove this unused "felicitations" private field.(ÕŞãº8ÿ¼ıõ2

@@ -10,7 +10,6 @@ public class OHCETest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-
     private OHCE ohce;
 
     @BeforeEach
@@ -23,72 +22,71 @@ public class OHCETest {
     @AfterEach
     public void tearDown() {
         System.setOut(originalOut);
+        outContent.reset();
     }
 
     @Test
-    public void testPalindromeDetection() {
-        // ÉTANT DONNÉ une entrée palindrome "radar"
-
+    public void testPalindromeSimple() {
+        // ÉTANT DONNÉ le mot palindrome "radar"
         // QUAND on appelle la méthode palindrome
         String result = ohce.palindrome("radar");
 
-        // ALORS le mot inversé est identique
+        // ALORS il retourne le mot inversé
         assertEquals("radar", result);
 
-        // ET le texte "Bonjour", "Bien dit !" et "Au revoir" apparaissent dans la sortie
-        String output = outContent.toString().trim();
+        // ET il affiche bonjour, bien dit, au revoir
+        String output = outContent.toString();
         assertTrue(output.contains("Bonjour"));
+        assertTrue(output.contains("radar"));
         assertTrue(output.contains("Bien dit !"));
         assertTrue(output.contains("Au revoir"));
     }
 
     @Test
     public void testNonPalindrome() {
-        // ÉTANT DONNÉ une entrée non palindrome "bonjour"
-
+        // ÉTANT DONNÉ un mot non palindrome "java"
         // QUAND on appelle la méthode palindrome
-        String result = ohce.palindrome("bonjour");
+        String result = ohce.palindrome("java");
 
-        // ALORS le mot inversé est "ruojnob"
-        assertEquals("ruojnob", result);
+        // ALORS il retourne le mot inversé
+        assertEquals("avaj", result);
 
-        // ET "Bien dit !" ne doit pas apparaître
-        String output = outContent.toString().trim();
+        // ET il affiche bonjour et au revoir, mais pas "Bien dit !"
+        String output = outContent.toString();
         assertTrue(output.contains("Bonjour"));
+        assertTrue(output.contains("avaj"));
         assertFalse(output.contains("Bien dit !"));
         assertTrue(output.contains("Au revoir"));
     }
 
     @Test
-    public void testEmptyString() {
-        // ÉTANT DONNÉ une chaîne vide
-
-        // QUAND on appelle la méthode palindrome
-        String result = ohce.palindrome("");
-
-        // ALORS la sortie retournée est aussi vide
-        assertEquals("", result);
-
-        // ET le message "Bien dit !" est affiché
-        String output = outContent.toString().trim();
-        assertTrue(output.contains("Bonjour"));
-        assertTrue(output.contains("Bien dit !")); // chaîne vide = palindrome
-        assertTrue(output.contains("Au revoir"));
-    }
-
-    @Test
-    public void testCaseInsensitivePalindrome() {
-        // ÉTANT DONNÉ une entrée palindrome avec majuscules/minuscules "Kayak"
-
+    public void testPalindromeWithCase() {
+        // ÉTANT DONNÉ un palindrome insensible à la casse "Kayak"
         // QUAND on appelle la méthode palindrome
         String result = ohce.palindrome("Kayak");
 
-        // ALORS la chaîne retournée est "kayaK"
+        // ALORS il retourne "kayaK"
         assertEquals("kayaK", result);
 
-        // ET "Bien dit !" est bien affiché
-        String output = outContent.toString().trim();
+        // ET il reconnaît que c'est un palindrome
+        String output = outContent.toString();
         assertTrue(output.contains("Bien dit !"));
+    }
+
+    @Test
+    public void testEmptyString() {
+        // ÉTANT DONNÉ une chaîne vide
+        // QUAND on appelle la méthode palindrome
+        String result = ohce.palindrome("");
+
+        // ALORS il retourne une chaîne vide
+        assertEquals("", result);
+
+        // ET affiche "Bien dit !" car une chaîne vide est un palindrome
+        String output = outContent.toString();
+        assertTrue(output.contains("Bonjour"));
+        assertTrue(output.contains("Bien dit !"));
+        assertTrue(output.contains("Au revoir"));
     }
 }
 
